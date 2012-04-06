@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="plugin" group="system">
+	<name>System - Intro</name>
+	<author>JoomlaHatesMe</author>
+	<creationDate>Mai 2009</creationDate>
+ 	<copyright>what?</copyright>
+	<license>wat is ne leihsenz</license>
+	<authorEmail>isch_habe_garkeine@email.ddr</authorEmail>
+	<authorUrl>www.unicef.org</authorUrl>
+	<version>0.1</version>
+	<description>simples plugin um eine intro seite beim ersten aufruf zu schalten... fuer joomla 1.5</description>
+	<files>
+		<filename plugin="intro">intro.php</filename>
+	</files>
+	
+	<params>
+		<param name="intro" type="textarea" default="hier den html quatsch rein." label="Intro HTML" rows="30" cols="50" description="hier den html quatsch rein." />
+		<param name="session" type="radio" default="0" label="Session Aufrecht erhalten" description="Haelt die session per ajax aufrecht, solange das browser fenster geoeffnet ist, auch wenn der user inaktiv ist. Macht sinn bei kurzen session zeiten, wenn der user zb. einen laengeren artikel schreibt etc.">
+			<option value="1">Yes</option>
+			<option value="0">No</option>
+		</param>
+	</params>
+
+</install>
