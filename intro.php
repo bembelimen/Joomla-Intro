@@ -9,8 +9,6 @@ class plgSystemIntro extends jPlugin {
 	// constructor
 	function plgSystemIntro(&$subject, $params) {
 		
-		$this->params = new JParameter($params);
-		
 		$this->mainframe =& JFactory::getApplication();
 
 		// ruft unseren base constructer auf.
