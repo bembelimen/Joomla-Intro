@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="2.5" type="plugin" group="system" method="upgrade">
-    <name>Introsite for Joomla</name>
-    <version>2.5.1</version>
+    <name>PLG_SYSTEM_INTRO</name>
+    <version>2.5.2</version>
     <author>Projekt Waterkant, based on the Plugin from JoomlaHatesMe</author>
-    <creationDate>August 2012</creationDate>
+    <creationDate>September 2012</creationDate>
     <authorEmail>kontakt@projektwaterkant.de</authorEmail>
     <authorUrl>www.projektwaterkant.de</authorUrl>
     <copyright>Copyright (C) 2012 Projekt Waterkant. All rights reserved.</copyright>
     <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
-    <description>simples plugin um eine intro seite beim ersten aufruf zu schalten... fuer joomla 2.5.x</description>
+    <description>PLG_SYSTEM_INTRO_XML_DESCRIPTION</description>
     <files>
+        <folder plugin="intro">language</folder>
         <filename plugin="intro">intro.php</filename>
         <filename>index.html</filename>
     </files>
