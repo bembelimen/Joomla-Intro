@@ -6,45 +6,61 @@ jimport('joomla.event.plugin');
 
 class plgSystemIntro extends JPlugin {
 
-	// constructor
-	function plgSystemIntro(&$subject, $params) {
-        parent::__construct($subject, $params);
-    }
-
-
-    // OnAfterDispatch event to render the introsite.
-    function OnAfterDispatch()
+	// OnAfterDispatch event to render the introsite.
+	public function OnAfterDispatch()
 	{
-        $session = JFactory::getSession();
+		$app = JFactory::getApplication();
+		$doc = JFactory::getDocument();
 
 		//check for frontend
-		if (!JFactory::getApplication()->isSite()) return ;
+		if (!$app->isSite()) return ;
 
 		// check for intro into the session
-       	$intro = $session->get('intro');
+			$intro = $app->getUserState('plugin.system.intro');
 
-       	if(empty($intro))
-       	{
-       		// get the parameter with the html
-       		echo $this->params->get('intro');
+			// a small google hack
+			// normal visitors start at the frontpage, so they will see the intro content
+			// google bots (or other search engines) visit sub links => don't show  them the intro content
+			// this is important, or google will list the intro content for every link at the homepage
+			$active = $app->getMenu()->getActive();
 
-       		// set intro to session
-       		$session->set('intro', 1);
+		if(empty($intro) && !empty($active->home))
+		{
+			// load the component.php for a valid html structure
+			$file = 'component.php';
 
-       		// stop rendering the site and show the html-output
-       		exit;
-       	}
+			// allow to use an own "intro.php" just for the intro text...
+			if (JFile::exists(JPATH_THEMES.'/'.$app->getTemplate().'/intro.php')) {
+				$file = 'intro.php';
+			}
 
-       	// keep the session alive
-       	if($this->params->get('session'))
-       	{
-       		echo JHTML::_('behavior.keepalive');
-       	}
+			$params = array('template' => $app->getTemplate(), 'file' => $file, 'directory' => JPATH_THEMES);
 
+			$doc->parse($params);
 
-    }
+			// inject the plugin content
+			$doc->setBuffer($this->params->get('intro'), array('type' => 'component', 'name' => null));
 
+			JResponse::setHeader('Content-Type', $doc->getMimeEncoding() . ($doc->getCharset() ? '; charset=' . $doc->getCharset() : ''));
 
+			$caching = ($app->getCfg('caching') >= 2) ? true : false;
+
+			// output the whole template
+			echo $doc->render($caching, $params);
+
+			// set intro to session
+			$app->setUserState('plugin.system.intro', 1);
+
+			// stop rendering the site and show the html-output
+			$app->close();
+		}
+
+		// keep the session alive
+		if($this->params->get('session'))
+		{
+			echo JHTML::_('behavior.keepalive');
+		}
+	}
 }
 
 
