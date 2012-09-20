@@ -24,14 +24,14 @@
                         filter="safehtml"
                         cols="30"
                         rows="5"
-                        label="Intro HTML"
-                        description="hier den html quatsch rein."/>
+                        label="INTRO_HTML_INPUT"
+                        description="INTRO_HTML_INPUT_DESCRIPTION"/>
                 <field
                         name="session"
                         type="radio"
                         default="1"
-                        label="Session aufrecht erhalten"
-                        description="Hält die Session per ajax aufrecht, solange das Browserfenster geöffnet ist, auch wenn der user inaktiv ist. Macht Sinn bei kurzen Sessionzeiten, wenn der User zb. einen längeren Artikel schreibt etc.">
+                        label="INTRO_SESSION_KEEPALIVE"
+                        description="INTRO_SESSION_KEEPALIVE_DESCRIPTION">
                     <option
                             value="0">JNo
                     </option>
