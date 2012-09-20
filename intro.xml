@@ -14,31 +14,50 @@
         <filename plugin="intro">intro.php</filename>
         <filename>index.html</filename>
     </files>
-
     <config>
         <fields name="params">
             <fieldset name="basic">
                 <field
-                        name="intro"
-                        type="textarea"
-                        filter="safehtml"
-                        cols="30"
-                        rows="5"
-                        label="INTRO_HTML_INPUT"
-                        description="INTRO_HTML_INPUT_DESCRIPTION"/>
+                    name="intro"
+                    type="textarea"
+                    filter="safehtml"
+                    cols="30"
+                    rows="5"
+                    label="Intro HTML"
+                    description="hier den html quatsch rein."/>
                 <field
-                        name="session"
-                        type="radio"
-                        default="1"
-                        label="INTRO_SESSION_KEEPALIVE"
-                        description="INTRO_SESSION_KEEPALIVE_DESCRIPTION">
+                    name="session"
+                    type="radio"
+                    default="1"
+                    label="Session aufrecht erhalten"
+                    description="Hält die Session per ajax aufrecht, solange das Browserfenster geöffnet ist, auch wenn der user inaktiv ist. Macht Sinn bei kurzen Sessionzeiten, wenn der User zb. einen längeren Artikel schreibt etc.">
                     <option
-                            value="0">JNo
+                        value="0">JNo
                     </option>
                     <option
-                            value="1">JYes
+                        value="1">JYes
                     </option>
                 </field>
+                <field
+                    name="nobots"
+                    type="list"
+                    default="1"
+                    label="Bots ausschließen"
+                    description="Sollen Bots ausgeschlossen werden? Bots werden über den User Agent erkannt.">
+                    <option
+                        value="1">JYES
+                    </option>
+                    <option
+                        value="0">JNO
+                    </option>
+                </field>
+                <field
+                    name="botslist"
+                    type="text"
+                    size="100"
+                    default="bot,spider,crawler,libwww,search,archive,slurp,teoma,facebook,twitter"
+                    label="Botliste"
+                    description="Hier die Bots eintragen." />
             </fieldset>
         </fields>
     </config>

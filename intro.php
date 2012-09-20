@@ -1,67 +1,83 @@
 <?php
 // no direct access
-defined( '_JEXEC' ) or die;
+defined('_JEXEC') or die;
 
 jimport('joomla.event.plugin');
 
-class plgSystemIntro extends JPlugin {
+class plgSystemIntro extends JPlugin
+{
 
-	// OnAfterDispatch event to render the introsite.
-	public function OnAfterDispatch()
-	{
-		$app = JFactory::getApplication();
-		$doc = JFactory::getDocument();
+    // OnAfterDispatch event to render the introsite.
+    public function OnAfterDispatch()
+    {
+        // Exlude bots from execution if option is set in the settings
+        if($this->params->get('nobots'))
+        {
+            $agent = $_SERVER['HTTP_USER_AGENT'];
+            $botslist = array_map('trim', explode(',', $this->params->get('botslist')));
 
-		//check for frontend
-		if (!$app->isSite()) return ;
+            foreach($botslist as $bot)
+            {
+                if(preg_match('@'.$bot.'@i', $agent))
+                {
+                    return;
+                }
+            }
+        }
 
-		// check for intro into the session
-			$intro = $app->getUserState('plugin.system.intro');
+        $app = JFactory::getApplication();
+        $doc = JFactory::getDocument();
 
-			// a small google hack
-			// normal visitors start at the frontpage, so they will see the intro content
-			// google bots (or other search engines) visit sub links => don't show  them the intro content
-			// this is important, or google will list the intro content for every link at the homepage
-			$active = $app->getMenu()->getActive();
+        //check for frontend
+        if(!$app->isSite())
+            return;
 
-		if(empty($intro) && !empty($active->home))
-		{
-			// load the component.php for a valid html structure
-			$file = 'component.php';
+        // check for intro into the session
+        $intro = $app->getUserState('plugin.system.intro');
 
-			// allow to use an own "intro.php" just for the intro text...
-			if (JFile::exists(JPATH_THEMES.'/'.$app->getTemplate().'/intro.php')) {
-				$file = 'intro.php';
-			}
+        // a small google hack
+        // normal visitors start at the frontpage, so they will see the intro content
+        // google bots (or other search engines) visit sub links => don't show  them the intro content
+        // this is important, or google will list the intro content for every link at the homepage
+        $active = $app->getMenu()->getActive();
 
-			$params = array('template' => $app->getTemplate(), 'file' => $file, 'directory' => JPATH_THEMES);
+        if(empty($intro) && !empty($active->home))
+        {
+            // load the component.php for a valid html structure
+            $file = 'component.php';
 
-			$doc->parse($params);
+            // allow to use an own "intro.php" just for the intro text...
+            if(JFile::exists(JPATH_THEMES.'/'.$app->getTemplate().'/intro.php'))
+            {
+                $file = 'intro.php';
+            }
 
-			// inject the plugin content
-			$doc->setBuffer($this->params->get('intro'), array('type' => 'component', 'name' => null));
+            $params = array('template' => $app->getTemplate(), 'file' => $file, 'directory' => JPATH_THEMES);
 
-			JResponse::setHeader('Content-Type', $doc->getMimeEncoding() . ($doc->getCharset() ? '; charset=' . $doc->getCharset() : ''));
+            $doc->parse($params);
 
-			$caching = ($app->getCfg('caching') >= 2) ? true : false;
+            // inject the plugin content
+            $doc->setBuffer($this->params->get('intro'), array('type' => 'component', 'name' => null));
 
-			// output the whole template
-			echo $doc->render($caching, $params);
+            JResponse::setHeader('Content-Type', $doc->getMimeEncoding().($doc->getCharset() ? '; charset='.$doc->getCharset() : ''));
 
-			// set intro to session
-			$app->setUserState('plugin.system.intro', 1);
+            $caching = ($app->getCfg('caching') >= 2) ? true : false;
 
-			// stop rendering the site and show the html-output
-			$app->close();
-		}
+            // output the whole template
+            echo $doc->render($caching, $params);
 
-		// keep the session alive
-		if($this->params->get('session'))
-		{
-			echo JHTML::_('behavior.keepalive');
-		}
-	}
+            // set intro to session
+            $app->setUserState('plugin.system.intro', 1);
+
+            // stop rendering the site and show the html-output
+            $app->close();
+        }
+
+        // keep the session alive
+        if($this->params->get('session'))
+        {
+            echo JHTML::_('behavior.keepalive');
+        }
+    }
+
 }
-
-
-?>
