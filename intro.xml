@@ -10,7 +10,6 @@
     <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
     <description>PLG_SYSTEM_INTRO_XML_DESCRIPTION</description>
     <files>
-        <folder plugin="intro">language</folder>
         <filename plugin="intro">intro.php</filename>
         <filename>index.html</filename>
     </files>
@@ -23,14 +22,14 @@
                     filter="safehtml"
                     cols="30"
                     rows="5"
-                    label="INTRO_HTML_INPUT"
-                    description="INTRO_HTML_INPUT_DESCRIPTION"/>
+                    label="PLG_SYSTEM_INTRO_HTML_INPUT"
+                    description="PLG_SYSTEM_INTRO_HTML_INPUT_DESCRIPTION"/>
                 <field
                     name="session"
                     type="radio"
                     default="1"
-                    label="INTRO_SESSION_KEEPALIVE"
-                    description="INTRO_SESSION_KEEPALIVE_DESCRIPTION">
+                    label="PLG_SYSTEM_INTRO_SESSION_KEEPALIVE"
+                    description="PLG_SYSTEM_INTRO_SESSION_KEEPALIVE_DESCRIPTION">
                     <option
                         value="0">JNo
                     </option>
@@ -42,8 +41,8 @@
                     name="nobots"
                     type="list"
                     default="1"
-                    label="INTRO_DISALLOW_BOTS"
-                    description="INTRO_DISALLOW_BOTS_DESCRIPTION">
+                    label="PLG_SYSTEM_INTRO_DISALLOW_BOTS"
+                    description="PLG_SYSTEM_INTRO_DISALLOW_BOTS_DESCRIPTION">
                     <option
                         value="1">JYES
                     </option>
@@ -54,10 +53,9 @@
                 <field
                     name="botslist"
                     type="text"
-                    size="100"
                     default="bot,spider,crawler,libwww,search,archive,slurp,teoma,facebook,twitter"
-                    label="INTRO_BOT_LIST"
-                    description="INTRO_BOT_LIST_DESCRIPTION" />
+                    label="PLG_SYSTEM_INTRO_BOT_LIST"
+                    description="PLG_SYSTEM_INTRO_BOT_LIST_DESCRIPTION" />
             </fieldset>
         </fields>
     </config>
