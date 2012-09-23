@@ -13,15 +13,11 @@ class plgSystemIntro extends JPlugin
         // Exlude bots from execution if option is set in the settings
         if($this->params->get('nobots'))
         {
-            $agent = $_SERVER['HTTP_USER_AGENT'];
-            $botslist = array_map('trim', explode(',', $this->params->get('botslist')));
-
-            foreach($botslist as $bot)
+            $botslist = array_filter(array_map('trim', explode(',', $this->params->get('botslist'))));
+            
+            if (!empty($botslist) && preg_match('/'.implode('|', array_map('preg_quote', $botslist)).'/i', $_SERVER['HTTP_USER_AGENT']))
             {
-                if(preg_match('@'.$bot.'@i', $agent))
-                {
-                    return;
-                }
+                return;
             }
         }
 
