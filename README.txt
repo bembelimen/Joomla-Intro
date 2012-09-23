@@ -57,7 +57,8 @@ defined('_JEXEC') or die;
   <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template ?>/css/your.css" type="text/css" />
 </head>
 <body>
-<div id="intro">Introsite with separat intro.php in the templatefolder</div>
+<div id="intro"><jdoc:include type="component" /></div>
 </body>
+</html>
 
 
