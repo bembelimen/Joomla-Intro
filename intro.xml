@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension version="2.5" type="plugin" group="system" method="upgrade">
+<extension version="5.0" type="plugin" group="system" method="upgrade">
     <name>PLG_SYSTEM_INTRO</name>
-    <version>2.5.2</version>
+    <version>5.0</version>
     <author>Projekt Waterkant, based on the Plugin from JoomlaHatesMe</author>
     <creationDate>September 2012</creationDate>
     <authorEmail>kontakt@projektwaterkant.de</authorEmail>
